@@ -8,9 +8,17 @@ jQuery(function($) {
     el: $('.map'),
     model: dataset
   });
+  map.infobox = function(record) {
+    var html = '<h3><a target="_blank" href="' + record.get('url') + '">';
+    html += record.get('title') + '</a>';
+    html += '</h3>';
+    html += '<p>' + record.get('description') + '</p>';
+    return html;
+  }
   map.render();
   dataset.fetch()
     .done(function() {
+      $('.city-count').text(dataset.recordCount);
       dataset.records.each(function(record) {
         if (record.get('latitude')=='' && record.get('place')) {
           var url = 'http://open.mapquestapi.com/nominatim/v1/search.php?format=json&q=' + encodeURIComponent(record.get('place'));
