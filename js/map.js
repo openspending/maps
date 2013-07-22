@@ -18,6 +18,7 @@ jQuery(function($) {
   map.render();
   dataset.fetch()
     .done(function() {
+      dataset.queryState.set('size', 0);
       $('.city-count').text(dataset.recordCount);
       dataset.records.each(function(record) {
         if (record.get('latitude')=='' && record.get('place')) {
