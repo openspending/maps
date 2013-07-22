@@ -24,10 +24,12 @@ jQuery(function($) {
         if (record.get('latitude')=='' && record.get('place')) {
           var url = 'http://open.mapquestapi.com/nominatim/v1/search.php?format=json&q=' + encodeURIComponent(record.get('place'));
           $.getJSON(url, function(data) {
-            record.set({
-              latitude: data[0].lat,
-              longitude: data[0].lon
-            });
+            if (typeof data[0] !== 'undefined') {
+              record.set({
+                latitude: data[0].lat,
+                longitude: data[0].lon
+              });
+            }
           });
         }
       });
